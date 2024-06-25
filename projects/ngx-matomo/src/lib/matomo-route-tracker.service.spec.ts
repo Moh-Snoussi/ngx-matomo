@@ -1,41 +1,28 @@
+import { provideLocationMocks } from '@angular/common/testing';
 import { TestBed } from '@angular/core/testing';
-import { ActivatedRoute } from '@angular/router';
-import { RouterTestingModule } from '@angular/router/testing';
+import { ActivatedRoute, provideRouter } from '@angular/router';
 
 import { of } from 'rxjs';
 
-import { MATOMO_CONFIGURATION } from './matomo-configuration';
+import { withDummyTracker } from './matomo-features';
+import { provideMatomoTracking } from './matomo-providers';
 import { MatomoRouteTracker } from './matomo-route-tracker.service';
-import { MatomoTracker } from './matomo-tracker.service';
 
 describe('MatomoRouteTrackerService', () => {
   let service: MatomoRouteTracker;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule.withRoutes([])],
       providers: [
+        provideRouter([]),
+        provideLocationMocks(),
         {
           provide: ActivatedRoute,
           useValue: {
             params: of({}),
           },
         },
-        {
-          provide: MATOMO_CONFIGURATION,
-          useValue: {
-            trackers: [],
-            trackAppStarting: true,
-            requireConsent: false,
-            enableLinkTracking: true,
-            enableLinkTrackingValue: false,
-            routeTracking: {
-              enable: false,
-            },
-          },
-        },
-        MatomoTracker,
-        MatomoRouteTracker,
+        provideMatomoTracking(withDummyTracker()),
       ],
     });
     service = TestBed.inject(MatomoRouteTracker);

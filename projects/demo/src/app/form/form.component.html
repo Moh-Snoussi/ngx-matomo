@@ -5,11 +5,22 @@
 <form [formGroup]="foodForm" id="foodForm">
   <fieldset>
     <label for="favoriteFood">Favorite Food</label>
-    <input type="text" placeholder="Favorite food" id="favoriteFood" formControlName="favorite" required />
+    <input
+      type="text"
+      placeholder="Favorite food"
+      id="favoriteFood"
+      formControlName="favorite"
+      required
+    />
     <label for="comment">Comment</label>
     <textarea placeholder="Leave a comment" id="comment" formControlName="comment"></textarea>
   </fieldset>
-  <button type="submit" class="primary" (click)="onSubmit()" [disabled]="!foodForm.valid">
-    Submit
-  </button>
+  <div class="grid">
+    <button type="submit" class="primary" (click)="onSubmit()" [disabled]="!foodForm.valid">
+      Submit
+    </button>
+    <button type="reset" class="secundary" (click)="onReset()" [disabled]="!foodForm.valid">
+      Reset
+    </button>
+  </div>
 </form>

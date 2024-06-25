@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 
-import { MatomoModule } from 'ngx-matomo';
+import { provideMatomoTracking, withConfig } from 'ngx-matomo';
 
 import { UserComponent } from './user.component';
 
@@ -11,8 +11,8 @@ describe('UserComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [ReactiveFormsModule, MatomoModule.forRoot({})],
-      declarations: [UserComponent],
+      imports: [UserComponent, ReactiveFormsModule],
+      providers: [provideMatomoTracking(withConfig({ trackers: [] }))],
     });
     fixture = TestBed.createComponent(UserComponent);
     component = fixture.componentInstance;

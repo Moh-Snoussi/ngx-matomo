@@ -6,11 +6,40 @@
   application.
 </p>
 
-<h2>Code</h2>
+<h2>Code examples</h2>
 
 <details>
-  <summary>Matomo configuration code</summary>
+  <summary>Setting up Matomo integration</summary>
   <div>
-    <pre><code class="language-javascript">{{ configurationCode }}</code></pre>
+    <pre><code class="language-javascript">{{
+"matomoConfig = {
+  scriptUrl: '//cdn.matomo.cloud/ngx.matomo.cloud/matomo.js',
+  trackers: [
+    {
+      trackerUrl: 'https://ngx.matomo.cloud/matomo.php',
+      siteId: 1,
+    },
+  ],
+  skipTrackingInitialPageView: false,
+  requireConsent: true,
+  routeTracking: {
+    enable: true,
+  },
+  trackLinks: true,
+}"
+    }}</code></pre>
+  </div>
+</details>
+
+<hr />
+
+<details>
+  <summary>Getting Matomo tracker URL</summary>
+  <div>
+    Code:
+    <pre><code class="language-javascript">{{
+      "this.matomoTracker.getMatomoUrl().then((url: string) => console.log('Matomo URL:', url));" }}</code></pre>
+    Result:
+    <pre><code>{{ matomoUrl | async }} </code></pre>
   </div>
 </details>

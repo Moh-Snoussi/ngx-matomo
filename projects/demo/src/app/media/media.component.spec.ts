@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MatomoModule } from 'ngx-matomo';
+import { provideMatomoTracking, withConfig } from 'ngx-matomo';
 
 import { MediaComponent } from './media.component';
 
@@ -10,8 +10,8 @@ describe('MediaComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [MatomoModule.forRoot({})],
-      declarations: [MediaComponent],
+      imports: [MediaComponent],
+      providers: [provideMatomoTracking(withConfig({ trackers: [] }))],
     });
     fixture = TestBed.createComponent(MediaComponent);
     component = fixture.componentInstance;

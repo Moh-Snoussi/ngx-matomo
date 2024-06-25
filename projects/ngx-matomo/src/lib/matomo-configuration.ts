@@ -1,101 +1,100 @@
 import { InjectionToken } from '@angular/core';
 
-export interface SanitizedMatomoConfiguration {
+type ClickTrackingOption = 'NONE' | 'LEFT_CLICK_ONLY' | 'LEFT_MIDDLE_RIGHT_CLICKS';
+
+export type MatomoConsentRequirement = 'NONE' | 'COOKIE' | 'TRACKING';
+
+export type MatomoRouteData = {
+  tracking?: 'AUTO' | 'OFF';
+  title?: string;
+  idRegExp?: RegExp;
+};
+
+export type MatomoTrackers = {
   /**
    * URL of the Matomo JS script to execute.
    */
   scriptUrl?: string;
   /**
-   * Version of the Matomo JS script to download.
-   * (there is no easy way to know for sure which features will be supported in the script)
-   */
-  scriptVersion: number;
-  /**
    * Array of trackers, each one of them being described by its URL and site id.
    */
-  trackers: Array<{ trackerUrl: string; siteId: number }>;
-  /**
-   * If true, user consent will be required.
-   */
-  requireConsent?: boolean;
-  /**
-   * If true, user consent will be required for cookies to be stored and used.
-   */
-  requireCookieConsent?: boolean;
-  /**
-   * If true, initial page view will not be tracked.
-   */
-  skipTrackingInitialPageView?: boolean;
-  /**
-   * If true, link will be automatically tracked on the first page (if enabled).
-   */
-  trackLinks?: boolean;
-  /**
-   * When link tracking has been enabled, this sets the value to the call to `enableLinkTracking`
-   */
-  trackLinkValue?: boolean;
-  /**
-   * Parameters related to route tracking.
-   */
-  routeTracking?: {
-    /**
-     * If true, automatic route tracking is enabled.
-     */
-    enable: boolean;
-    /**
-     * List of DOM element ids for tracking content impressions.
-     */
-    contentIds?: Array<string>;
-  };
-}
-
-/**
- * Matomo module configuration interface.
- */
-export interface MatomoConfiguration extends SanitizedMatomoConfiguration {
-  /**
-   * If true, automatically track the app being started.
-   * @deprecated
-   */
-  trackAppStart?: boolean;
-}
-
-export function sanitizeConfiguration(
-  configuration: Partial<MatomoConfiguration>
-): Partial<SanitizedMatomoConfiguration> {
-  const sanitizedConfiguration: Partial<SanitizedMatomoConfiguration> = {
-    ...defaultConfiguration,
-    ...configuration,
-  };
-
-  if (configuration.trackAppStart !== undefined && configuration.trackAppStart !== null) {
-    sanitizedConfiguration.skipTrackingInitialPageView = !configuration.trackAppStart;
-  }
-
-  if (configuration.routeTracking !== undefined && configuration.routeTracking !== null) {
-    sanitizedConfiguration.routeTracking = configuration.routeTracking;
-  }
-
-  return sanitizedConfiguration;
-}
-
-/**
- * Injection token for Matomo configuration.
- */
-export const MATOMO_CONFIGURATION = new InjectionToken<MatomoConfiguration>('MATOMO_CONFIGURATION');
-
-/**
- * Default configuration for the Matomo module.
- */
-const defaultConfiguration: Partial<SanitizedMatomoConfiguration> = {
-  scriptVersion: 4,
-  trackers: [],
-  requireConsent: false,
-  requireCookieConsent: false,
-  skipTrackingInitialPageView: false,
-  trackLinks: true,
-  trackLinkValue: false,
-  routeTracking: {
-    enable: false,
-  },
+  trackers: { trackerUrl: string; siteId: number }[];
 };
+
+export const defaultTrackers: Promise<MatomoTrackers> = Promise.resolve({
+  trackers: [],
+});
+
+export type MatomoTrackingConfiguration = {
+  disableCrossDomainLinking?: boolean; // TODO: currently inactive
+  disableCookies?: boolean;
+  secureCookie?: boolean;
+  cookieDomain?: string;
+  cookiePath?: string;
+  cookieSameSite?: 'Lax' | 'Strict' | 'None';
+  doNotUserSendBeacon?: boolean;
+  detectBrowserFeatures?: boolean;
+  enableDoNotTrack?: boolean;
+  consentRequirement?: MatomoConsentRequirement;
+  trackJavaScriptErrors?: boolean;
+  localDomains?: string[];
+  heartBeatTimer?: number;
+  customDimensions?: { index: number; value: string }[];
+  disableCampaignParametersTracking?: boolean;
+};
+
+export const defaultTrackingConfiguration: MatomoTrackingConfiguration = {
+  disableCrossDomainLinking: false,
+  disableCookies: false,
+  doNotUserSendBeacon: false,
+  enableDoNotTrack: false,
+  consentRequirement: 'NONE',
+  detectBrowserFeatures: false,
+  trackJavaScriptErrors: false,
+  disableCampaignParametersTracking: false,
+};
+
+export type MatomoRouteTrackingConfiguration = {
+  linkTracking: ClickTrackingOption;
+  clearIds: boolean;
+  idRegExp?: RegExp;
+  idReplacement?: string;
+  clearMatrixParams: boolean;
+  clearQueryParams: boolean;
+  clearHash: boolean;
+};
+
+export const defaultRouteTrackingConfiguration: MatomoRouteTrackingConfiguration = {
+  linkTracking: 'NONE',
+  clearIds: false,
+  idReplacement: ':id',
+  clearMatrixParams: false,
+  clearQueryParams: false,
+  clearHash: false,
+};
+
+/**
+ * Injection token for internal Matomo trackers.
+ */
+export const MATOMO_TRACKERS_INTERNAL_CONFIGURATION = new InjectionToken<MatomoTrackers>(
+  'Matomo trackers internal configuration',
+);
+
+/**
+ * Injection token for internal Matomo tracking configuration.
+ */
+export const MATOMO_TRACKING_INTERNAL_CONFIGURATION =
+  new InjectionToken<MatomoTrackingConfiguration>('Matomo tracking internal configuration');
+
+/**
+ * Injection token for internal Matomo route tracking configuration.
+ */
+export const MATOMO_ROUTE_TRACKING_INTERNAL_CONFIGURATION =
+  new InjectionToken<MatomoRouteTrackingConfiguration>(
+    'Matomo route tracking internal configuration',
+  );
+
+/**
+ * Injection token for Matomo debug tracing.
+ */
+export const MATOMO_DEBUG_TRACING = new InjectionToken<boolean>('Matomo debug tracing');

@@ -1,22 +1,30 @@
+import { provideLocationMocks } from '@angular/common/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, provideRouter } from '@angular/router';
 
-import { CATALOG } from '../e-commerce.module';
-import { ARTICLES } from './articles';
+import { provideMatomoTracking, withMockedTracker } from 'ngx-matomo';
+
+import { CATALOG } from '../e-commerce.tokens';
 import { ArticleComponent } from './article.component';
+import { ARTICLES } from '../articles';
 
 describe('ArticleComponent', () => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   let router: Router;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   let route: ActivatedRoute;
   let component: ArticleComponent;
   let fixture: ComponentFixture<ArticleComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [{ provide: CATALOG, useValue: ARTICLES }],
-      declarations: [ArticleComponent],
-      imports: [RouterTestingModule.withRoutes([])],
+      imports: [ArticleComponent],
+      providers: [
+        { provide: CATALOG, useValue: ARTICLES },
+        provideRouter([]),
+        provideLocationMocks(),
+        provideMatomoTracking(withMockedTracker()),
+      ],
     });
     router = TestBed.inject(Router);
     route = TestBed.inject(ActivatedRoute);

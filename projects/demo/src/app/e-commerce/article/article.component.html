@@ -1,13 +1,22 @@
 <a role="button" routerLink="../.." class="outline">← Back</a>
 
-<article *ngIf="article$ | async as article">
-  <h3>{{ article.name }}</h3>
-  <div class="grid">
-    <div>
-      <p>Description: {{ article.description }}</p>
-      <p>Category: {{ article.category }}</p>
-      <p>Price: {{ article.price | currency }}</p>
+@if (article$ | async; as article) {
+  <article>
+    <h3>{{ article.name }}</h3>
+    <div class="grid">
+      <div>
+        <p>Description: {{ article.description }}</p>
+        <p>Category: {{ article.category }}</p>
+        <p>Price: {{ article.price | currency }}</p>
+      </div>
+      <img
+        ngSrc="https://picsum.photos/id/{{ article.id }}/200/300"
+        width="200"
+        height="300"
+        alt=""
+        class="section media"
+        priority="preload"
+      />
     </div>
-    <img src="https://picsum.photos/id/{{ article.id }}/200/300" alt="" class="section media" />
-  </div>
-</article>
+  </article>
+}

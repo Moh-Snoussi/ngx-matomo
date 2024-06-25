@@ -1,30 +1,36 @@
+import { CurrencyPipe, NgOptimizedImage } from '@angular/common';
+import { Component, ElementRef, OnInit, inject, viewChild } from '@angular/core';
+import { RouterLink } from '@angular/router';
+
 import { MatomoTracker } from 'ngx-matomo';
 
-import { Component, inject, OnInit } from '@angular/core';
-
 import { Article } from '../article/article.model';
-import { CATALOG } from '../e-commerce.module';
+import { CATALOG } from '../e-commerce.tokens';
 
 @Component({
-  selector: 'app-order',
+  selector: 'demo-order',
+  standalone: true,
+  imports: [RouterLink, NgOptimizedImage, CurrencyPipe],
   templateUrl: './order.component.html',
   styleUrls: [],
 })
 export class OrderComponent implements OnInit {
   private readonly matomoTracker = inject(MatomoTracker);
+  private readonly dialogElt = viewChild<ElementRef<HTMLDialogElement>>('confirmation');
   readonly catalog = inject(CATALOG);
 
-  public order: { id: string; items: Array<{ article: Article; quantity: number }> } | null = null;
+  public order: { id: string; items: { article: Article; quantity: number }[] } | null = null;
 
   ngOnInit(): void {
     if (!this.order) {
-      this.order = { id: '' + Math.floor(Math.random() * 10000), items: [] };
+      this.order = createOrder();
     }
+    console.info('Dialog Ref', this.dialogElt());
   }
 
   addArticle(articleId: number): void {
     const item = this.order?.items.find((i) => i.article.id === articleId);
-    if (!!item) {
+    if (item) {
       item.quantity += 1;
     } else {
       this.order?.items.push({
@@ -37,13 +43,13 @@ export class OrderComponent implements OnInit {
       this.catalog.find((a) => a.id === articleId)?.name,
       this.catalog.find((a) => a.id === articleId)?.category,
       this.catalog.find((a) => a.id === articleId)?.price,
-      1
+      1,
     );
     this.matomoTracker.trackEcommerceCartUpdate(this.getGrandTotalPrice());
   }
 
   removeArticle(articleId: number): void {
-    if (!!this.order) {
+    if (this.order) {
       const index = this.order.items.findIndex((i) => i.article.id === articleId);
       if (index >= 0) {
         if (this.order.items[index]?.quantity > 1) {
@@ -51,15 +57,19 @@ export class OrderComponent implements OnInit {
         } else {
           this.order.items.splice(index, 1);
         }
+        this.matomoTracker.trackEvent('eCommerce', 'RemoveItem', '' + articleId, 1);
       }
+      this.matomoTracker.trackEvent('eCommerce', 'RemoveItem', '' + articleId);
     }
+    this.matomoTracker.removeEcommerceItem('' + articleId);
+    this.matomoTracker.trackEcommerceCartUpdate(this.getGrandTotalPrice());
   }
 
   getGrandTotalPrice(): number {
-    if (!!this.order) {
+    if (this.order) {
       return this.order.items.reduce(
         (acc, cur) => acc + cur.quantity * (cur.article.price ?? 0),
-        0
+        0,
       );
     } else {
       return 0;
@@ -67,8 +77,21 @@ export class OrderComponent implements OnInit {
   }
 
   validateOrder(): void {
-    if (!!this.order) {
+    if (this.order) {
       this.matomoTracker.trackEcommerceOrder(this.order.id, this.getGrandTotalPrice());
     }
+    this.dialogElt()?.nativeElement.showModal();
+  }
+
+  clearOrder(): void {
+    this.order = createOrder();
+    this.matomoTracker.clearEcommerceCart();
+  }
+
+  closeDialog(): void {
+    this.order = createOrder();
+    this.dialogElt()?.nativeElement.close();
   }
 }
+
+const createOrder = () => ({ id: '' + Math.floor(Math.random() * 10000), items: [] });

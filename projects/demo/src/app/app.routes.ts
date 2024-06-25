@@ -1,14 +1,12 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-
-import { FormComponent } from './form/form.component';
-import { MediaComponent } from './media/media.component';
+import { Routes } from '@angular/router';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { UserComponent } from './user/user.component';
 import { ConsentComponent } from './consent/consent.component';
 import { EventComponent } from './event/event.component';
+import { FormComponent } from './form/form.component';
+import { MediaComponent } from './media/media.component';
 
-const routes: Routes = [
+export const routes: Routes = [
   {
     path: 'user',
     component: UserComponent,
@@ -25,8 +23,8 @@ const routes: Routes = [
     title: 'Event Page',
   },
   {
-    path: 'ecommerce',
-    loadChildren: () => import('./e-commerce/e-commerce.module').then((m) => m.ECommerceModule),
+    path: 'e-commerce',
+    loadChildren: () => import('./e-commerce/e-commerce.routes').then((m) => m.E_COMMERCE_ROUTES),
   },
   {
     path: 'media',
@@ -45,9 +43,3 @@ const routes: Routes = [
     title: 'Welcome Page',
   },
 ];
-
-@NgModule({
-  imports: [RouterModule.forRoot(routes, { enableTracing: false })],
-  exports: [RouterModule],
-})
-export class AppRoutingModule {}

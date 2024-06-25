@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
@@ -7,9 +7,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
     <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --pico-font-family: Quicksand;
+        --pico-border-radius: 1rem;
+        --pico-typography-spacing-vertical: 1.5rem;
+        --pico-form-element-spacing-vertical: 1rem;
+        --pico-form-element-spacing-horizontal: 1.25rem;
+      }
+      h1,
+      h2,
+      h3 {
+        --pico-font-family: Pacifico;
+        --pico-typography-spacing-vertical: 0.5rem;
+        margin-bottom: 1.5rem;
+      }
+      h1 {
+        --pico-font-weight: 400;
+        margin-top: 2rem;
+      }
+      button {
+        --pico-font-weight: 700;
+      }
+      button.small {
+        padding: 0;
+      }
+    </style>
   </head>
-
   <body>
-    <app-root />
+    <demo-root></demo-root>
   </body>
 </html>

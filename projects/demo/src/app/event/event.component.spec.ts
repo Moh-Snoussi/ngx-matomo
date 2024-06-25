@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MatomoModule } from 'ngx-matomo';
+import { provideMatomoTracking, withConfig } from 'ngx-matomo';
 
 import { EventComponent } from './event.component';
 
@@ -10,8 +10,8 @@ describe('EventComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [MatomoModule.forRoot({})],
-      declarations: [EventComponent],
+      imports: [EventComponent],
+      providers: [provideMatomoTracking(withConfig({ trackers: [] }))],
     });
     fixture = TestBed.createComponent(EventComponent);
     component = fixture.componentInstance;

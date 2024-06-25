@@ -13,20 +13,30 @@
           <tr>
             <th scope="col">Data</th>
             <th scope="col">Value</th>
+            <th scope="col">Code</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <th scope="row">Visitor Id</th>
             <td data-label="Value">{{ visitorId }}</td>
+            <td data-label="Code">
+              <pre><code class="language-javascript">{{ "this.matomoTracker.getVisitorId().then(console.log);" }}</code></pre>
+            </td>
           </tr>
           <tr>
             <th scope="row">Visitor Info</th>
             <td data-label="Value">{{ visitorInfo | json }}</td>
+            <td data-label="Code">
+              <pre><code class="language-javascript">{{ "this.matomoTracker.getVisitorInfo().then(console.log);" }}</code></pre>
+            </td>
           </tr>
           <tr>
             <th scope="row">User Id</th>
             <td data-label="Value">{{ userId }}</td>
+            <td data-label="Code">
+              <pre><code class="language-javascript">{{ "this.matomoTracker.getUserId().then(console.log);" }}</code></pre>
+            </td>
           </tr>
         </tbody>
       </table>
@@ -51,19 +61,34 @@
   </form>
 </section>
 
-<h2>Code</h2>
+<h2>Code examples</h2>
 
 <details>
   <summary>Getting the User Id</summary>
-  <pre><code class="language-typescript">{{ getUserIdCode }}</code></pre>
+  <div>
+    Code:
+    <pre><code class="language-typescript">{{ "this.matomoTracker.getUserId().then(console.log);" }}</code></pre>
+    Result:
+    <pre><code>{{ userId }}</code></pre>
+  </div>
 </details>
+
+<hr />
 
 <details>
   <summary>Setting the User Id</summary>
-  <pre><code class="language-typescript">{{ setUserIdCode }}</code></pre>
+  <div>
+    Code:
+    <pre><code class="language-typescript">{{ "this.matomoTracker.setUserId('MyUserId');" }}</code></pre>
+  </div>
 </details>
+
+<hr />
 
 <details>
   <summary>Resetting the User Id</summary>
-  <pre><code class="language-typescript">{{ resetUserIdCode }}</code></pre>
+  <div>
+    Code:
+    <pre><code class="language-typescript">{{ "this.matomoTracker.resetUserId();" }}</code></pre>
+  </div>
 </details>

@@ -1,19 +1,11 @@
-import { AfterViewInit, Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
+import { RouterLink, RouterOutlet } from '@angular/router';
 
-import { MatomoTracker } from 'ngx-matomo';
-
-/**
- * Main component of the demo application.
- */
 @Component({
-  selector: 'app-root',
+  selector: 'demo-root',
+  standalone: true,
+  imports: [RouterOutlet, RouterLink],
   templateUrl: './app.component.html',
-  styleUrls: [],
+  styleUrl: './app.component.css',
 })
-export class AppComponent implements AfterViewInit {
-  private readonly matomoTracker = inject(MatomoTracker);
-
-  ngAfterViewInit(): void {
-    this.matomoTracker.getMatomoUrl().then((url: string) => console.log('Matomo URL:', url));
-  }
-}
+export class AppComponent {}

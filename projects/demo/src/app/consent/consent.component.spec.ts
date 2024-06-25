@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MatomoModule } from 'ngx-matomo';
+import { provideMatomoTracking, withMockedTracker } from 'ngx-matomo';
 
 import { ConsentComponent } from './consent.component';
 
@@ -10,8 +10,8 @@ describe('ConsentComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [MatomoModule.forRoot({})],
-      declarations: [ConsentComponent],
+      imports: [ConsentComponent],
+      providers: [provideMatomoTracking(withMockedTracker())],
     });
     fixture = TestBed.createComponent(ConsentComponent);
     component = fixture.componentInstance;

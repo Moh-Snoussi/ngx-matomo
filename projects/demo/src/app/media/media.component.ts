@@ -1,12 +1,14 @@
-import { Component, inject } from '@angular/core';
-
 import { MatomoTracker } from 'ngx-matomo';
+import { Component, inject } from '@angular/core';
+import { NgOptimizedImage } from '@angular/common';
 
 /**
  *
  */
 @Component({
-  selector: 'app-media',
+  selector: 'demo-media',
+  standalone: true,
+  imports: [NgOptimizedImage],
   templateUrl: './media.component.html',
   styleUrls: [],
 })

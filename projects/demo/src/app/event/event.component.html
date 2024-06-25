@@ -26,18 +26,24 @@
       </tr>
     </tbody>
   </table>
-  <footer>
-  </footer>
 </article>
 
-<h2>Code</h2>
+<h2>Code examples</h2>
 
 <details>
   <summary>Code for tracking an event</summary>
-  <pre><code class="language-typescript">{{ eventTrackingCode }}</code></pre>
+  <pre><code class="language-typescript">this.matomoTracker.trackEvent('Category', 'Button pressed', 'tracking with code');</code></pre>
 </details>
+
+<hr />
 
 <details>
   <summary>Directive for tracking a click</summary>
-  <pre><code class="language-html">{{ clickTrackingCode }}</code></pre>
+  <pre><code class="language-html">&lt;button
+  matomoClickCategory="Category"
+  matomoClickAction="Button pressed"
+  matomoClickName="Tracking with directive"
+&gt;
+  Click Me!
+&lt;/button&gt;</code></pre>
 </details>

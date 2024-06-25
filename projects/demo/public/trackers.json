@@ -1,0 +1,9 @@
+{
+  "scriptUrl": "https://cdn.matomo.cloud/ngx.matomo.cloud/matomo.js",
+  "trackers": [
+    {
+      "trackerUrl": "https://ngx.matomo.cloud/matomo.php",
+      "siteId": 1
+    }
+  ]
+}

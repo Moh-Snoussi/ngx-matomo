@@ -7,17 +7,40 @@
     occur until consent is given.
   </p>
   <p>
-    Is Matomo using cookies? <kbd>{{ hasCookies }}</kbd>
+    Is tracking consent required? <kbd>{{ isTrackingConsentRequired() }}</kbd>
+  </p>
+  <p>
+    Has tracking consent been given? <kbd>{{ isTrackingConsentGiven() }}</kbd>
   </p>
   <footer>
     <div class="grid">
-      <button class="primary" (click)="onGiveConsent($event)">Give Consent</button>
-      <button class="secondary" (click)="onRemoveConsent($event)">Remove Consent</button>
+      <button class="primary" (click)="onGiveTrackingConsent()">Give Consent</button>
+      <button class="secondary" (click)="onRemoveTrackingConsent()">Remove Consent</button>
     </div>
   </footer>
 </article>
 
-<h2>Code</h2>
+<article>
+  <h2>User consent for cookies</h2>
+  <p>
+    If you have configured the Matomo tracker to expect consent for setting cookies, then no cookie
+    will be set until consent is given.
+  </p>
+  <p>
+    Has cookie consent been given? <kbd>{{ isCookieConsentGiven() }}</kbd>
+  </p>
+  <p>
+    Is Matomo using cookies? <kbd>{{ hasCookies() }}</kbd>
+  </p>
+  <footer>
+    <div class="grid">
+      <button class="primary" (click)="onGiveCookieConsent()">Give Consent</button>
+      <button class="secondary" (click)="onRemoveCookieConsent()">Remove Consent</button>
+    </div>
+  </footer>
+</article>
+
+<h2>Code examples</h2>
 
 <details>
   <summary>Knowing if Matomo has its cookies enabled</summary>
