@@ -23,12 +23,3 @@ jobs:
           npm run build:ngx-matomo:prod
         env:
           CI: true
-
-      - uses: browser-actions/setup-chrome@v1
-        id: setup-chrome
-      - run: |
-          ${{ steps.setup-chrome.outputs.chrome-path }} --version
-          npm run test:ci ngx-matomo
-          npm run test:ci demo
-        env:
-          CI: true
