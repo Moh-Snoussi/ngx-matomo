@@ -33,7 +33,7 @@
     "watch": "ng build --watch --configuration development",
     "watch:prod": "ng build --watch --configuration production",
     "test": "ng test",
-    "test:ci": "ng test --watch=false --progress=false --code-coverage --browsers=ChromeHeadlessCI",
+    "test:ci": "ng test --watch=false --progress=false --code-coverage --browsers=Chromium",
     "lint": "ng lint",
     "clean": "rimraf dist/*",
     "format:write": "prettier projects/**/*.{ts,json,md,scss} --write",
