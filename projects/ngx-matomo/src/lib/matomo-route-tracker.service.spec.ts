@@ -30,13 +30,6 @@ TestBed.configureTestingModule({
 
 describe('MatomoRouteTrackerService', () => {
 
-
-  beforeEach(() => {
-
-
-
-  });
-
   it('should be created', async () => {
     expect(service).toBeTruthy();
   });
