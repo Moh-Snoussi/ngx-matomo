@@ -8,27 +8,36 @@ import { withDummyTracker } from './matomo-features';
 import { provideMatomoTracking } from './matomo-providers';
 import { MatomoRouteTracker } from './matomo-route-tracker.service';
 
-describe('MatomoRouteTrackerService', () => {
-  let service: MatomoRouteTracker;
+let service: MatomoRouteTracker;
+TestBed.runInInjectionContext(() => {
+  service = new MatomoRouteTracker();
+});
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      providers: [
-        provideRouter([]),
-        provideLocationMocks(),
-        {
-          provide: ActivatedRoute,
-          useValue: {
-            params: of({}),
-          },
+TestBed.configureTestingModule({
+
+    providers: [
+      provideRouter([]),
+      provideLocationMocks(),
+      {
+        provide: ActivatedRoute,
+        useValue: {
+          params: of({}),
         },
-        provideMatomoTracking(withDummyTracker()),
-      ],
-    });
-    service = TestBed.inject(MatomoRouteTracker);
+      },
+      provideMatomoTracking(withDummyTracker()),
+    ],
   });
 
-  it('should be created', () => {
+describe('MatomoRouteTrackerService', () => {
+
+
+  beforeEach(() => {
+
+
+
+  });
+
+  it('should be created', async () => {
     expect(service).toBeTruthy();
   });
 });

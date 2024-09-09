@@ -7,11 +7,14 @@ import { MatomoTracker } from './matomo-tracker.service';
 describe('MatomoTrackerService', () => {
   let service: MatomoTracker;
 
+  TestBed.runInInjectionContext(() => {
+    service = new MatomoTracker();
+  });
+
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [provideMatomoTracking(withDummyTracker())],
     });
-    service = TestBed.inject(MatomoTracker);
   });
 
   it('should be created', () => {
