@@ -1,0 +1,49 @@
+{
+  "name": "ngx-matomo",
+  "version": "2.0.0",
+  "author": "Arnaud Mouronval <arnaud.mouronval@gmail.com>",
+  "description": "Matomo (aka. Piwik) web analytics for Angular applications.",
+  "keywords": [
+    "matomo",
+    "piwik",
+    "angular",
+    "aot",
+    "web analytics"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Arnaud73/ngx-matomo.git"
+  },
+  "peerDependencies": {
+    "@angular/common": ">=18.0.0 <19.0.0",
+    "@angular/core": ">=18.0.0 <19.0.0",
+    "@angular/router": ">=18.0.0 <19.0.0",
+    "rxjs": "~7.8.0"
+  },
+  "peerDependenciesMeta": {
+    "@angular/router": {
+      "optional": true
+    },
+    "rxjs": {
+      "optional": true
+    }
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
+  "sideEffects": false,
+  "module": "fesm2022/ngx-matomo.mjs",
+  "typings": "index.d.ts",
+  "exports": {
+    "./package.json": {
+      "default": "./package.json"
+    },
+    ".": {
+      "types": "./index.d.ts",
+      "esm2022": "./esm2022/ngx-matomo.mjs",
+      "esm": "./esm2022/ngx-matomo.mjs",
+      "default": "./fesm2022/ngx-matomo.mjs"
+    }
+  }
+}
