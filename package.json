@@ -3,6 +3,9 @@
   "version": "3.0.0",
   "author": "Arnaud Mouronval <arnaud.mouronval@gmail.com>",
   "description": "Matomo (aka. Piwik) web analytics for Angular applications.",
+  "module": "dist/ngx-matomo/fesm2022/ngx-matomo.mjs",
+  "main": "dist/ngx-matomo/esm2022/public-api.mjs",
+  "typings": "dist/ngx-matomo/index.d.ts",
   "keywords": [
     "matomo",
     "piwik",
